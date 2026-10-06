@@ -29,6 +29,7 @@ export { AccessibilityMenu } from './lib/ui/components/AccessibilityMenu'
 export { ColorSchemeMenu } from './lib/ui/components/ColorSchemeMenu'
 export { DefaultFollowingIndicator } from './lib/ui/components/DefaultFollowingIndicator'
 export { DefaultDialogs } from './lib/ui/components/Dialogs'
+export { GridTypeMenu } from './lib/ui/components/GridTypeMenu'
 export {
 	TldrawUiColumn,
 	TldrawUiGrid,

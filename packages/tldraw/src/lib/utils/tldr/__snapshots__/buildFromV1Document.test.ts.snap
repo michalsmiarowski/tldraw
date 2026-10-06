@@ -40,6 +40,7 @@ exports[`buildFromV1Document test fixtures > arrow-binding.tldr 1`] = `
   },
   "document:document": {
     "gridSize": 10,
+    "gridType": "square",
     "id": "document:document",
     "meta": {},
     "name": "",
@@ -225,6 +226,7 @@ exports[`buildFromV1Document test fixtures > exact-arrow-binding.tldr 1`] = `
   },
   "document:document": {
     "gridSize": 10,
+    "gridType": "square",
     "id": "document:document",
     "meta": {},
     "name": "",
@@ -392,6 +394,7 @@ exports[`buildFromV1Document test fixtures > incorrect-arrow-binding.tldr 1`] = 
   },
   "document:document": {
     "gridSize": 10,
+    "gridType": "square",
     "id": "document:document",
     "meta": {},
     "name": "",

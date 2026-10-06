@@ -151,6 +151,7 @@ export {
 	isDocument,
 	TLDOCUMENT_ID,
 	type TLDocument,
+	type TLGridType,
 } from './records/TLDocument'
 export {
 	pluckPreservingValues,

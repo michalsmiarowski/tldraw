@@ -68,6 +68,7 @@ import { TLDefaultDashStyle } from '@tldraw/tlschema';
 import { TLDefaultHorizontalAlignStyle } from '@tldraw/tlschema';
 import { TLDocument } from '@tldraw/tlschema';
 import { TLFontFace } from '@tldraw/tlschema';
+import { TLGridType } from '@tldraw/tlschema';
 import { TLGroupShape } from '@tldraw/tlschema';
 import { TLHandle } from '@tldraw/tlschema';
 import { TLImageAsset } from '@tldraw/tlschema';
@@ -707,7 +708,7 @@ export const DefaultCursor: MemoExoticComponent<({ className, zoom, point, color
 export function DefaultErrorFallback({ error, editor }: TLErrorFallbackProps): JSX.Element;
 
 // @public (undocumented)
-export function DefaultGrid({ x, y, z, size }: TLGridProps): JSX.Element;
+export function DefaultGrid({ x, y, z, size, type }: TLGridProps): JSX.Element;
 
 // @public (undocumented)
 export const DefaultShapeWrapper: ForwardRefExoticComponent<TLShapeWrapperProps & RefAttributes<HTMLDivElement>>;
@@ -768,6 +769,7 @@ export const defaultTldrawOptions: {
         readonly step: 1;
     }];
     readonly handleRadius: 12;
+    readonly hexGridStep: 4;
     readonly hitTestMargin: 3;
     readonly laserDelayMs: 1200;
     readonly laserFadeoutMs: 500;
@@ -3214,6 +3216,9 @@ export class SnapManager {
     readonly shapeBounds: BoundsSnaps;
 }
 
+// @public
+export function snapToHexCenter(point: VecLike, size: number, orientation: TLHexOrientation): Vec;
+
 // @internal
 export class SpatialIndexManager {
     constructor(editor: Editor);
@@ -3891,6 +3896,7 @@ export interface TldrawOptions {
     }[];
     // (undocumented)
     readonly handleRadius: number;
+    readonly hexGridStep: number;
     // (undocumented)
     readonly hitTestMargin: number;
     // (undocumented)
@@ -4285,6 +4291,7 @@ export interface TLGetShapeAtPointOptions {
 export interface TLGridProps {
     // (undocumented)
     size: number;
+    type?: TLGridType;
     // (undocumented)
     x: number;
     // (undocumented)
@@ -4304,6 +4311,9 @@ export interface TLHandleDragInfo<T extends TLShape> {
     // (undocumented)
     isPrecise: boolean;
 }
+
+// @public
+export type TLHexOrientation = 'flat' | 'pointy';
 
 // @public (undocumented)
 export interface TLHistoryBatchOptions {

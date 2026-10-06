@@ -1568,6 +1568,42 @@ describe('translating while the grid is enabled', () => {
 	})
 })
 
+describe('translating while a hex grid is enabled', () => {
+	// The default grid size is 10, so hex centers are 40 apart. Moving the box's center from
+	// (10, 10) to (35, 13) should snap it to the closest hex center.
+	it('snaps the center of the selection to the nearest pointy-top cell', () => {
+		editor.createShapes([box(ids.box1, 0, 0, 20, 20)])
+		editor.updateInstanceState({ isGridMode: true })
+		editor.updateDocumentSettings({ gridType: 'hex-pointy' })
+
+		editor.select(ids.box1).pointerDown(10, 10, ids.box1).pointerMove(35, 13)
+
+		expect(editor.getShapePageBounds(ids.box1)!.center).toMatchObject({ x: 40, y: 0 })
+	})
+
+	it('snaps the center of the selection to the nearest flat-top cell', () => {
+		editor.createShapes([box(ids.box1, 0, 0, 20, 20)])
+		editor.updateInstanceState({ isGridMode: true })
+		editor.updateDocumentSettings({ gridType: 'hex-flat' })
+
+		editor.select(ids.box1).pointerDown(10, 10, ids.box1).pointerMove(35, 13)
+
+		const center = editor.getShapePageBounds(ids.box1)!.center
+		expect(center.x).toBeCloseTo(20 * Math.sqrt(3))
+		expect(center.y).toBeCloseTo(20)
+	})
+
+	it('does not snap while the accel key is held', () => {
+		editor.createShapes([box(ids.box1, 0, 0, 20, 20)])
+		editor.updateInstanceState({ isGridMode: true })
+		editor.updateDocumentSettings({ gridType: 'hex-pointy' })
+
+		editor.select(ids.box1).pointerDown(10, 10, ids.box1).pointerMove(35, 13, { ctrlKey: true })
+
+		expect(editor.getShapePageBounds(ids.box1)!.center).toMatchObject({ x: 35, y: 13 })
+	})
+})
+
 describe('snap lines', () => {
 	it('should show up for all matching snaps, even if the axis is locked', () => {
 		//   0           60                    200

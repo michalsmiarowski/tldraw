@@ -185,12 +185,13 @@ function InFrontOfTheCanvasWrapper() {
 function GridWrapper() {
 	const editor = useEditor()
 	const gridSize = useValue('gridSize', () => editor.getDocumentSettings().gridSize, [editor])
+	const gridType = useValue('gridType', () => editor.getDocumentSettings().gridType, [editor])
 	const { x, y, z } = useValue('camera', () => editor.getCamera(), [editor])
 	const { Grid } = useEditorComponents()
 
 	if (!Grid) return null
 
-	return <Grid x={x} y={y} z={z} size={gridSize} />
+	return <Grid x={x} y={y} z={z} size={gridSize} type={gridType} />
 }
 
 function ShapesLayer({ canvasRef }: { canvasRef: { readonly current: HTMLDivElement | null } }) {

@@ -10,6 +10,14 @@ import { JsonObject } from '@tldraw/utils'
 import { T } from '@tldraw/validate'
 
 /**
+ * Shape of the grid cells. Hex grids come in two versions: `hex-flat` hexes have a flat edge at
+ * the top, `hex-pointy` hexes have a corner at the top.
+ *
+ * @public
+ */
+export type TLGridType = 'square' | 'hex-flat' | 'hex-pointy'
+
+/**
  * Document record containing global settings and metadata for a tldraw document.
  * There is exactly one document record per tldraw instance with a fixed ID.
  *
@@ -19,6 +27,7 @@ import { T } from '@tldraw/validate'
  *   id: 'document:document',
  *   typeName: 'document',
  *   gridSize: 20,        // Grid snap size in pixels
+ *   gridType: 'square',  // Shape of the grid cells
  *   name: 'My Drawing',  // Document name
  *   meta: {
  *     createdAt: Date.now(),
@@ -39,6 +48,8 @@ import { T } from '@tldraw/validate'
 export interface TLDocument extends BaseRecord<'document', RecordId<TLDocument>> {
 	/** Grid snap size in pixels. Used for shape positioning and alignment */
 	gridSize: number
+	/** Shape of the grid cells. Everyone in the document sees the same one */
+	gridType: TLGridType
 	/** Human-readable name of the document */
 	name: string
 	/** User-defined metadata for the document */
@@ -68,6 +79,7 @@ export const documentValidator: T.Validator<TLDocument> = T.model(
 		typeName: T.literal('document'),
 		id: T.literal('document:document' as RecordId<TLDocument>),
 		gridSize: T.number,
+		gridType: T.literalEnum('square', 'hex-flat', 'hex-pointy'),
 		name: T.string,
 		meta: T.jsonValue as T.ObjectValidator<JsonObject>,
 	})
@@ -118,6 +130,7 @@ export function isDocument(record?: UnknownRecord): record is TLDocument {
 export const documentVersions = createMigrationIds('com.tldraw.document', {
 	AddName: 1,
 	AddMeta: 2,
+	AddGridType: 3,
 } as const)
 
 /**
@@ -135,6 +148,7 @@ export const documentVersions = createMigrationIds('com.tldraw.document', {
  * // The migrations:
  * // v1: Added 'name' property with empty string default
  * // v2: Added 'meta' property with empty object default
+ * // v3: Added 'gridType' property with 'square' default
  * ```
  *
  * @public
@@ -158,6 +172,15 @@ export const documentMigrations = createRecordMigrationSequence({
 				;(record as any).meta = {}
 			},
 		},
+		{
+			id: documentVersions.AddGridType,
+			up: (document) => {
+				;(document as any).gridType = 'square'
+			},
+			down: (document) => {
+				delete (document as any).gridType
+			},
+		},
 	],
 })
 
@@ -178,7 +201,7 @@ export const documentMigrations = createRecordMigrationSequence({
  * // Create with defaults
  * const defaultDocument = DocumentRecordType.create({
  *   id: TLDOCUMENT_ID
- *   // gridSize: 10, name: '', meta: {} are applied as defaults
+ *   // gridSize: 10, gridType: 'square', name: '', meta: {} are applied as defaults
  * })
  *
  * // Store the document
@@ -193,6 +216,7 @@ export const DocumentRecordType = createRecordType<TLDocument>('document', {
 }).withDefaultProperties(
 	(): Omit<TLDocument, 'id' | 'typeName'> => ({
 		gridSize: 10,
+		gridType: 'square',
 		name: '',
 		meta: {},
 	})

@@ -15,6 +15,7 @@ import {
 	compact,
 	isPageId,
 	kickoutOccludedShapes,
+	snapToHexCenter,
 } from '@tldraw/editor'
 import {
 	NOTE_ADJACENT_POSITION_SNAP_RADIUS,
@@ -586,7 +587,7 @@ export function moveShapesToPoint({
 
 	const isGridMode = editor.getInstanceState().isGridMode
 
-	const gridSize = editor.getDocumentSettings().gridSize
+	const { gridSize, gridType } = editor.getDocumentSettings()
 
 	const delta = Vec.Sub(inputs.getCurrentPagePoint(), inputs.getOriginPagePoint())
 
@@ -651,7 +652,19 @@ export function moveShapesToPoint({
 	// we don't want to snap to the grid if we're holding the accel key, if we've already snapped into a pit, or if we're showing snapping indicators
 	const snapIndicators = editor.snaps.getIndicators()
 	if (isGridMode && !accelKey && !snappedToPit && snapIndicators.length === 0) {
-		averageSnappedPoint.snapToGrid(gridSize)
+		if (gridType === 'square') {
+			averageSnappedPoint.snapToGrid(gridSize)
+		} else {
+			// Snap the center of the selection, not its corner, so a token ends up in the middle
+			// of a hex.
+			const center = Vec.Add(initialPageBounds.center, delta)
+			const snappedCenter = snapToHexCenter(
+				center,
+				gridSize * editor.options.hexGridStep,
+				gridType === 'hex-flat' ? 'flat' : 'pointy'
+			)
+			averageSnappedPoint.add(Vec.Sub(snappedCenter, center))
+		}
 	}
 
 	const averageSnap = Vec.Sub(averageSnappedPoint, averagePagePoint)

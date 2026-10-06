@@ -1273,6 +1273,7 @@ export type TLDefaultVerticalAlignStyle = T.TypeOf<typeof DefaultVerticalAlignSt
 // @public
 export interface TLDocument extends BaseRecord<'document', RecordId<TLDocument>> {
     gridSize: number;
+    gridType: TLGridType;
     meta: JsonObject;
     name: string;
 }
@@ -1391,6 +1392,9 @@ export interface TLGlobalRecordPropsMap {
 // @public (undocumented)
 export interface TLGlobalShapePropsMap {
 }
+
+// @public
+export type TLGridType = 'hex-flat' | 'hex-pointy' | 'square';
 
 // @public
 export type TLGroupShape = TLBaseShape<'group', TLGroupShapeProps>;

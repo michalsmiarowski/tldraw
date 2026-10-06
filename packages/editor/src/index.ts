@@ -389,6 +389,7 @@ export { Polygon2d } from './lib/primitives/geometry/Polygon2d'
 export { Polyline2d } from './lib/primitives/geometry/Polyline2d'
 export { Rectangle2d } from './lib/primitives/geometry/Rectangle2d'
 export { Stadium2d } from './lib/primitives/geometry/Stadium2d'
+export { snapToHexCenter, type TLHexOrientation } from './lib/primitives/hex'
 export {
 	intersectCircleCircle,
 	intersectCirclePolygon,

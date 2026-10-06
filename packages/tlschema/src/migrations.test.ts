@@ -2794,6 +2794,18 @@ describe('DrawShapeSegment dim validation', () => {
 	})
 })
 
+describe('Add gridType to document', () => {
+	const { up, down } = getTestMigration(documentVersions.AddGridType)
+
+	test('up works as expected', () => {
+		expect(up({ gridSize: 10 })).toEqual({ gridSize: 10, gridType: 'square' })
+	})
+
+	test('down works as expected', () => {
+		expect(down({ gridSize: 10, gridType: 'hex-flat' })).toEqual({ gridSize: 10 })
+	})
+})
+
 /* ---  PUT YOUR MIGRATIONS TESTS ABOVE HERE --- */
 
 // check that all migrator fns were called at least once

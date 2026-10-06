@@ -81,6 +81,11 @@ export interface TldrawOptions {
 		readonly mid: number
 		readonly step: number
 	}[]
+	/**
+	 * Size of a hex grid cell, in grid steps. With the default grid size of 10, a cell one step
+	 * wide would be only 10px across, which is too small to put anything in.
+	 */
+	readonly hexGridStep: number
 	readonly collaboratorInactiveTimeoutMs: number
 	readonly collaboratorIdleTimeoutMs: number
 	readonly collaboratorCheckIntervalMs: number
@@ -309,6 +314,7 @@ export const defaultTldrawOptions = {
 		{ min: 0.15, mid: 1, step: 4 },
 		{ min: 0.7, mid: 2.5, step: 1 },
 	],
+	hexGridStep: 4,
 	collaboratorInactiveTimeoutMs: 60000,
 	collaboratorIdleTimeoutMs: 3000,
 	collaboratorCheckIntervalMs: 1200,

@@ -9,6 +9,7 @@ import {
 	EditSubmenu,
 	ExportFileContentSubMenu,
 	ExtrasGroup,
+	GridTypeMenu,
 	InputModeMenu,
 	KeyboardShortcutsMenuItem,
 	LanguageMenu,
@@ -486,6 +487,7 @@ function TlaPreferencesGroup() {
 					<UIThemeSubmenu />
 					<AccessibilityMenu />
 					<InputModeMenu />
+					<GridTypeMenu />
 				</TldrawUiMenuGroup>
 			</TldrawUiMenuSubmenu>
 			<LanguageMenu />

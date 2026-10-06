@@ -377,6 +377,14 @@ input,
 	fill: var(--tl-color-grid);
 }
 
+.tl-grid-hex {
+	fill: none;
+	stroke: var(--tl-color-grid);
+	/* Lines look much darker than dots of the same color, so we tone them down. */
+	stroke-opacity: 0.35;
+	stroke-width: 1px;
+}
+
 /* --------------------- Layers --------------------- */
 
 .tl-html-layer {

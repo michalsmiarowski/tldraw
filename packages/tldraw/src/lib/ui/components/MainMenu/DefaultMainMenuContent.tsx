@@ -2,6 +2,7 @@ import { useActions } from '../../context/actions'
 import { useCanRedo, useCanUndo } from '../../hooks/menu-hooks'
 import { AccessibilityMenu } from '../AccessibilityMenu'
 import { ColorSchemeMenu } from '../ColorSchemeMenu'
+import { GridTypeMenu } from '../GridTypeMenu'
 import { KeyboardShortcutsMenuItem } from '../HelpMenu/DefaultHelpMenuContent'
 import { InputModeMenu } from '../InputModeMenu'
 import { LanguageMenu } from '../LanguageMenu'
@@ -175,6 +176,7 @@ export function PreferencesGroup() {
 					<AccessibilityMenu />
 					<InputModeMenu />
 					<ColorSchemeMenu />
+					<GridTypeMenu />
 				</TldrawUiMenuGroup>
 			</TldrawUiMenuSubmenu>
 			<LanguageMenu />

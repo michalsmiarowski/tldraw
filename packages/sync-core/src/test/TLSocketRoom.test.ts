@@ -96,6 +96,7 @@ describe('28. TLSocketRoom (SR)', () => {
 			    "lastChangedClock": 0,
 			    "state": {
 			      "gridSize": 10,
+			      "gridType": "square",
 			      "id": "document:document",
 			      "meta": {},
 			      "name": "",
@@ -713,6 +714,7 @@ describe('28. TLSocketRoom (SR)', () => {
 			    "lastChangedClock": 1,
 			    "state": {
 			      "gridSize": 10,
+			      "gridType": "square",
 			      "id": "document:document",
 			      "meta": {},
 			      "name": "",

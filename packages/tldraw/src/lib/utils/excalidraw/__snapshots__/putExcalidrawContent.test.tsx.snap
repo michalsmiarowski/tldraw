@@ -40,6 +40,7 @@ exports[`putExcalidrawContent test fixtures > bound-arrows.json 1`] = `
   },
   "document:document": {
     "gridSize": 10,
+    "gridType": "square",
     "id": "document:document",
     "meta": {},
     "name": "",
@@ -225,6 +226,7 @@ exports[`putExcalidrawContent test fixtures > bound-elbow-arrows.json 1`] = `
   },
   "document:document": {
     "gridSize": 10,
+    "gridType": "square",
     "id": "document:document",
     "meta": {},
     "name": "",
@@ -389,6 +391,7 @@ exports[`putExcalidrawContent test fixtures > image.json 1`] = `
   },
   "document:document": {
     "gridSize": 10,
+    "gridType": "square",
     "id": "document:document",
     "meta": {},
     "name": "",
@@ -440,6 +443,7 @@ exports[`putExcalidrawContent test fixtures > line-drawing.json 1`] = `
 {
   "document:document": {
     "gridSize": 10,
+    "gridType": "square",
     "id": "document:document",
     "meta": {},
     "name": "",
